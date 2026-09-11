@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import type { st } from '../type';
 
 interface StackProps {
@@ -7,6 +7,20 @@ interface StackProps {
 
 const Stack = ({ stackPromise }: StackProps) => {
     const stacks = use(stackPromise);
+    const [myStack, setMyStack] = useState<st[]>([]);
+
+    const addToStack = (item: st) => {
+       
+        setMyStack([...myStack, item]);
+    };
+
+    const removeFromStack = (id: string) => {
+        setMyStack(myStack.filter((s) => s.id !== id));
+    };
+
+    const removeAll = () => {
+        setMyStack([]);
+    };
 
     return (
         <div className="px-4 lg:px-8 py-12 max-w-6xl mx-auto">
@@ -58,7 +72,10 @@ const Stack = ({ stackPromise }: StackProps) => {
                                     </span>
                                 </div>
 
-                                <button className="btn btn-sm mt-3 border-none text-white bg-slate-900 hover:bg-slate-800">
+                                <button
+                                    onClick={() => addToStack(item)}
+                                    className="btn btn-sm mt-3 border-none text-white bg-slate-900 hover:bg-slate-800"
+                                >
                                     Add to Stack
                                 </button>
                             </div>
@@ -66,13 +83,50 @@ const Stack = ({ stackPromise }: StackProps) => {
                     ))}
                 </div>
 
-                <div className="w-full lg:w-64 border border-dashed border-slate-300 rounded-xl p-4">
-                    <h3 className="font-semibold text-slate-800 mb-1">Your Stack</h3>
-                    <p className="text-sm text-slate-400 mb-3">No technologies selected yet.</p>
-                    <div className="border border-dashed border-slate-200 rounded-lg h-16 flex items-center justify-center text-sm text-slate-400">
-                        Your stack is empty.
+
+
+    <div className="w-full lg:w-64 border border-slate-200 rounded-xl p-4">
+    <h3 className="font-semibold text-slate-800">Your Stack</h3>
+    <p className="text-sm text-slate-400 mb-3">
+        {myStack.length} Technology Selected
+    </p>
+
+    {myStack.length === 0 ? (
+        <p className="text-sm text-slate-400">No technologies selected yet.</p>
+    ) : (
+        <div className="flex flex-col gap-2">
+            {myStack.map((item) => (
+               <div>
+                 <div
+                    key={item.id}
+                    className="flex items-center gap-2 border border-slate-200 rounded-lg p-2"
+                >
+                    <img src={item.icon} alt={item.name} className="h-6 w-6 object-contain" />
+                    <div className="flex-1">
+                        <p className="text-sm font-medium text-slate-800">{item.name}</p>
+                        <p className="text-xs text-slate-400">{item.category}</p>
                     </div>
+                    <button
+                        onClick={() => removeFromStack(item.id)}
+                        className="text-slate-400 hover:text-slate-600"
+                    >
+                        ✕
+                    </button>
                 </div>
+                <button
+            onClick={removeAll}
+            className="btn btn-sm btn-outline border-red-300 text-red-500 hover:bg-red-50 w-full mt-4"
+        >
+            Remove All
+        </button>
+               </div>
+              
+            ))}
+        </div>
+    )}
+
+  
+</div>
             </div>
         </div>
     );
