@@ -14,8 +14,8 @@ const Stack = ({ stackPromise }: StackProps) => {
         setMyStack([...myStack, item]);
     };
 
-    const removeFromStack = (id: string) => {
-        setMyStack(myStack.filter((s) => s.id !== id));
+    const removeFromStack = (item:st) => {
+        setMyStack(myStack.filter((s) => s.id !== item.id));
     };
 
     const removeAll = () => {
@@ -107,21 +107,22 @@ const Stack = ({ stackPromise }: StackProps) => {
                         <p className="text-xs text-slate-400">{item.category}</p>
                     </div>
                     <button
-                        onClick={() => removeFromStack(item.id)}
+                        onClick={() => removeFromStack(item)}
                         className="text-slate-400 hover:text-slate-600"
                     >
                         ✕
                     </button>
                 </div>
-                <button
+               
+               </div>
+              
+            ))}
+             <button
             onClick={removeAll}
             className="btn btn-sm btn-outline border-red-300 text-red-500 hover:bg-red-50 w-full mt-4"
         >
             Remove All
         </button>
-               </div>
-              
-            ))}
         </div>
     )}
 
