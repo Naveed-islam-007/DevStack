@@ -5,6 +5,7 @@ import Banner from './components/Banner'
 import Navbar from './components/Navbar'
 import Stack from './components/Stack'
 import type { st } from './type'
+import Footer from './components/Footer'
 
 
  const stackFetch=async():Promise<st[]>=>{
@@ -25,6 +26,7 @@ const stackPromise=stackFetch();
     <Suspense fallback={<p className="text-center py-12">Loading stack...</p>}>
         <Stack stackPromise={stackPromise} />
       </Suspense>
+      <Footer></Footer>
     </>
   )
 }
