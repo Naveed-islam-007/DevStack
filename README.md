@@ -1,32 +1,39 @@
-# React + TypeScript + Vite
+Fetch data from api for displaying the technology type using async await.
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+ Selecting data from the fetched list by pressing the add button on the card and displaying them on a separate section using State properties of react.
 
-Currently, two official plugins are available:
+After selecting the data and storing them we can also delete them all together by remove all button which clear the myStack and also individually by pressing X icon on the right side of each card by using .filter on the myStack memory.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+QUESTIONS AND ANSWERS
 
-## Expanding the Oxlint configuration
+1)i. JSX — a syntax extension letting you write HTML-like markup inside JavaScript. React uses it because it makes UI structure easier to read/write 
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+2) Props: data passed into a component from its parent — read-only, component can't         change them.
+     State: data owned by the component itself — can change over time and triggers           re-renders when updated.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+3) Lets a functional component hold and update local state. 
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+4)Runs side effects after render (data fetching, subscriptions, DOM stuff). You needed it to load JSON data because fetching is a side effect — it shouldn't run during render, and useEffect lets you trigger it once (or when dependencies change) after the component mounts 
+
+5) React uses key to track which list items changed, were added, or removed, so it can update the DOM efficiently instead of re-rendering the whole list. Without unique keys, React can misidentify items, causing bugs 
+
+6) Showing different UI based on a condition. Example:
+{items.length === 0 ? (
+  <p>No items found.</p>
+) : (
+  items.map(item => <Item key={item.id} data={item} />)
+)}
+
+
+7) Parent → Child: pass data as props.
+<Child data={value} />
+Child → Parent: parent passes a callback function as a prop; child calls it with data.
+// Parent
+<Child onUpdate={(val) => setValue(val)} />
+
+// Child
+props.onUpdate("new value");
+
+
