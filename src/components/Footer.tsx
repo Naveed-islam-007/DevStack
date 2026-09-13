@@ -3,7 +3,7 @@ import Logo from "../assets/logo-text.png"
 const Footer = () => {
     return (
        <div className="flex justify-evenly container mx-auto pt-4">
-    {/* Brand */}
+    
     <div className="max-w-xs">
         <img src={Logo} />
         <p className="mt-3 text-gray-500">
